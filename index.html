@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人財務規劃 Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1 class="gradient-text"><i class="fas fa-wallet"></i> 個人財務規劃 Dashboard</h1>
+                <p class="subtitle">每月薪資流向與彈性預算</p>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="切換暗黑/白天模式">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <main>
+            <!-- 總覽卡片與試算工具 -->
+            <section class="overview-calculator">
+                <div class="overview-cards">
+                    <div class="card highlight">
+                        <h3><span class="icon-wrapper"><i class="fas fa-sack-dollar"></i></span> 每月薪資</h3>
+                        <p class="amount gradient-text" id="total-income">NT$ 63,091</p>
+                    </div>
+                    <div class="card highlight-blue">
+                        <h3><span class="icon-wrapper"><i class="fas fa-piggy-bank"></i></span> 基礎剩餘閒錢</h3>
+                        <p class="amount" id="base-flexible">NT$ 8,252</p>
+                        <p class="note">扣除所有固定與必備開銷後的額度</p>
+                    </div>
+                </div>
+
+                <div class="card calculator-card">
+                    <h3><i class="fas fa-calculator"></i> 彈性花費互動試算</h3>
+                    <p class="note">輸入本月的額外開銷，看看還能存多少</p>
+                    
+                    <div class="input-group">
+                        <label for="input-rental">假日租車花費 (NT$)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-car-side input-icon"></i>
+                            <input type="number" id="input-rental" placeholder="例如：1000" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="input-fun">純娛樂花費 (夾娃娃/聚餐等) (NT$)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-gamepad input-icon"></i>
+                            <input type="number" id="input-fun" placeholder="例如：3000" min="0">
+                        </div>
+                    </div>
+
+                    <div class="result-box">
+                        <h4>本月最終可額外存下 (現金)：</h4>
+                        <p class="amount" id="final-savings">NT$ 8,252</p>
+                        <p class="note" style="text-align: right; margin-top: 5px;">*不含已投入的 1 萬元基金</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 詳細預算區塊 -->
+            <h2 class="section-title"><i class="fas fa-list"></i> 基礎開銷明細 (已於上方扣除)</h2>
+            <section class="details-grid" id="finance-details">
+                <!-- 資料將由 JavaScript 動態填入 -->
+            </section>
+
+            <!-- 年度獎金與總體檢 -->
+            <h2 class="section-title"><i class="fas fa-gift"></i> 年度獎金與額外可用資金</h2>
+            <section class="annual-bonus-section">
+                <div class="card bonus-card" id="annual-bonus-container">
+                    <!-- 資料將由 JavaScript 動態填入 -->
+                </div>
+            </section>
+
+            <!-- 版本更新紀錄 -->
+            <section class="changelog">
+                <h2><i class="fas fa-history"></i> 版本更新紀錄</h2>
+                <ul id="changelog-list">
+                    <!-- 資料將由 JavaScript 動態填入 -->
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Personal Finance Dashboard. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

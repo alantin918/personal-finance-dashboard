@@ -1,0 +1,520 @@
+/* ===== CSS Variables (Light Mode Default) ===== */
+:root {
+    /* Color Palette */
+    --bg-color: #F8FAFC;         /* Slate 50 */
+    --text-color: #1E293B;       /* Slate 800 */
+    --text-muted: #64748B;       /* Slate 500 */
+    --card-bg: #FFFFFF;
+    --border-color: #E2E8F0;     /* Slate 200 */
+    
+    /* Accents & Highlights */
+    --primary-color: #0F172A;    /* Slate 900 for headings */
+    --accent-color: #0EA5E9;     /* Sky 500 */
+    --highlight-color: #EF4444;  /* Red 500 */
+    --success-color: #10B981;    /* Emerald 500 */
+    --bonus-color: #8B5CF6;      /* Violet 500 */
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+    --gradient-icon-bg: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    --gradient-bonus: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    --gradient-bonus-icon-bg: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    
+    /* UI Elements */
+    --input-bg: #F1F5F9;         /* Slate 100 */
+    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --card-shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Dark Mode Variables ===== */
+html[data-theme="dark"],
+body[data-theme="dark"],
+[data-theme="dark"] {
+    --bg-color: #0F172A;         /* Slate 900 */
+    --text-color: #F1F5F9;       /* Slate 100 */
+    --text-muted: #94A3B8;       /* Slate 400 */
+    --card-bg: #1E293B;          /* Slate 800 */
+    --border-color: rgba(255, 255, 255, 0.1);
+    
+    --primary-color: #F8FAFC;    /* Slate 50 */
+    --accent-color: #38BDF8;     /* Sky 400 */
+    --highlight-color: #F87171;  /* Red 400 */
+    --success-color: #34D399;    /* Emerald 400 */
+    --bonus-color: #A78BFA;      /* Violet 400 */
+    
+    --gradient-primary: linear-gradient(135deg, #38BDF8 0%, #34D399 100%);
+    --gradient-icon-bg: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(52, 211, 153, 0.15) 100%);
+    --gradient-bonus: linear-gradient(135deg, #818CF8 0%, #A78BFA 100%);
+    --gradient-bonus-icon-bg: linear-gradient(135deg, rgba(129, 140, 248, 0.15) 0%, rgba(167, 139, 250, 0.15) 100%);
+    
+    --input-bg: #0F172A;         /* Slate 900 */
+    --card-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --card-shadow-hover: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+}
+
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Using modern typography */
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ===== Typography Utility ===== */
+.gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-content h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-content h1 i {
+    color: var(--accent-color); /* Fallback */
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-content .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--accent-color);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+}
+
+/* ===== Cards General ===== */
+.card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255,255,255,0.05); /* very subtle highlight */
+    margin-bottom: 24px;
+    transition: var(--transition-smooth);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+/* Icon Wrappers inside Cards */
+.icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--gradient-icon-bg);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.card .amount {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.card .note {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+/* ===== Overview & Calculator Section ===== */
+.overview-calculator {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.overview-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.overview-cards .card {
+    margin-bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.highlight .amount { color: var(--text-color); }
+.highlight-blue .amount { color: var(--accent-color); }
+
+/* Calculator Specifics */
+.calculator-card {
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle gradient top border for calculator */
+.calculator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+}
+
+.input-group label {
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: var(--transition-smooth);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    border: 2px solid transparent;
+    background-color: var(--input-bg);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+    font-size: 1.05rem;
+    font-family: inherit;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+/* Focus states */
+.input-group input:focus {
+    background-color: var(--card-bg);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
+}
+
+.input-group input:focus + .input-icon,
+.input-group input:focus ~ .input-icon {
+    color: var(--accent-color);
+}
+
+/* Hide number arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.result-box {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+}
+
+.result-box h4 {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.result-box .amount {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--success-color);
+    letter-spacing: -0.03em;
+}
+
+/* ===== Details Grid ===== */
+.section-title {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.detail-list {
+    list-style: none;
+    margin-top: 20px;
+    background: var(--input-bg);
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+}
+
+.detail-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+}
+
+.detail-list li:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.item-value {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+/* ===== Annual Bonus Section ===== */
+.annual-bonus-section {
+    margin-bottom: 48px;
+}
+
+.bonus-card {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    border-radius: var(--radius-lg);
+}
+
+.bonus-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: var(--gradient-bonus);
+    z-index: -1;
+    border-radius: inherit;
+}
+
+.bonus-header h3 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+}
+
+.bonus-icon {
+    background: var(--gradient-bonus-icon-bg);
+    color: var(--bonus-color);
+}
+
+/* ===== Changelog ===== */
+.changelog {
+    background-color: var(--card-bg);
+    padding: 35px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+}
+
+.changelog h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.changelog ul {
+    list-style-type: none;
+}
+
+.changelog li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 24px;
+}
+
+.changelog li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
+}
+
+/* Line connecting timeline dots */
+.changelog li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 20px;
+    bottom: -15px;
+    width: 2px;
+    background-color: var(--border-color);
+}
+
+.changelog .version {
+    font-weight: 700;
+    color: var(--text-color);
+    background: var(--input-bg);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-right: 12px;
+}
+
+.changelog .date {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.changelog .desc {
+    margin-top: 10px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ===== Responsive Design (RWD) ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .header-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .overview-calculator {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .card .amount {
+        font-size: 1.8rem;
+    }
+    
+    .result-box .amount {
+        font-size: 2.4rem;
+    }
+}
