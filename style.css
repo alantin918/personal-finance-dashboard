@@ -375,6 +375,10 @@ input::-webkit-inner-spin-button {
 .item-value {
     font-weight: 700;
     color: var(--text-color);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 12px;
+    text-align: right;
 }
 
 /* ===== Annual Bonus Section ===== */
