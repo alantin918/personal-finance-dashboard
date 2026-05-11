@@ -142,8 +142,12 @@ function renderAnnualBonus() {
     
     const actualExtraFund = estimatedExtraBonus + welfareFund - potentialBonusCut;
     const actualExtraFundWan = (actualExtraFund / 10000).toFixed(1);
-    const annualBaseSavings = baseFlexibleFund * 12;
-    const estimatedAnnualSurplus = annualBaseSavings + actualExtraFund;
+    
+    // 計算兩種存款情境
+    const annualBaseSavingsIdeal = baseFlexibleFund * 12;
+    const annualBaseSavingsConservative = (baseFlexibleFund * 0.5) * 12;
+    const estimatedAnnualSurplusIdeal = annualBaseSavingsIdeal + actualExtraFund;
+    const estimatedAnnualSurplusConservative = annualBaseSavingsConservative + actualExtraFund;
     
     container.innerHTML = `
         <div class="bonus-header">
@@ -168,9 +172,15 @@ function renderAnnualBonus() {
                     <span class="item-name">預期縮減 (如：今年可能砍旅遊金)</span>
                     <span class="item-value" style="color: var(--highlight-color); font-weight: 800;">- NT$ ${potentialBonusCut.toLocaleString()}</span>
                 </li>
-                <li style="border-top: 2px dashed var(--border-color); margin-top: 10px; padding-top: 15px;">
-                    <span class="item-name" style="font-size: 1.1rem; color: var(--primary-color);">🌟 預估年度總存款 (每月閒錢×12 + 獎金)</span>
-                    <span class="item-value" style="font-size: 1.4rem; color: var(--success-color);">NT$ ${estimatedAnnualSurplus.toLocaleString()}</span>
+                <li style="border-top: 2px dashed var(--border-color); margin-top: 10px; padding-top: 15px; flex-direction: column; align-items: flex-start; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                        <span class="item-name" style="font-size: 1.1rem; color: var(--primary-color);">🌟 最高存款潛力 (每月閒錢 100% 存下)</span>
+                        <span class="item-value" style="font-size: 1.3rem; color: var(--success-color);">NT$ ${estimatedAnnualSurplusIdeal.toLocaleString()}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                        <span class="item-name" style="font-size: 1rem; color: var(--text-muted);">🛡️ 保守預估存款 (每月閒錢僅存 50%)</span>
+                        <span class="item-value" style="font-size: 1.1rem; color: var(--text-color);">NT$ ${estimatedAnnualSurplusConservative.toLocaleString()}</span>
+                    </div>
                 </li>
             </ul>
         </div>
