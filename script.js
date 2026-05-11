@@ -140,10 +140,15 @@ function renderAnnualBonus() {
     const container = document.getElementById('annual-bonus-container');
     if (!container) return;
     
+    const actualExtraFund = estimatedExtraBonus + welfareFund - potentialBonusCut;
+    const actualExtraFundWan = (actualExtraFund / 10000).toFixed(1);
+    const annualBaseSavings = baseFlexibleFund * 12;
+    const estimatedAnnualSurplus = annualBaseSavings + actualExtraFund;
+    
     container.innerHTML = `
         <div class="bonus-header">
             <h3><span class="icon-wrapper bonus-icon"><i class="fas fa-trophy"></i></span> 全年真實財力：NT$ ${totalAnnualPower.toLocaleString()}</h3>
-            <p class="note" style="margin-top: 10px; font-size: 1rem; color: var(--text-color);">💡 除了每月薪水，您一年還有大約 <strong>7.8 萬</strong> 的彈性大筆資金！<br><span style="color: var(--text-muted); font-size: 0.9rem;">(強烈建議將這筆錢存做「緊急預備金」、「年度旅遊基金」或「大額單筆投資」，勿攤入每月日常開銷中)</span></p>
+            <p class="note" style="margin-top: 10px; font-size: 1rem; color: var(--text-color);">💡 除了每月薪水，您一年還有大約 <strong>${actualExtraFundWan} 萬</strong> 的非固定大筆資金！<br><span style="color: var(--text-muted); font-size: 0.9rem;">(強烈建議將這筆錢存做「緊急預備金」、「年度旅遊基金」或「大額單筆投資」，勿攤入每月日常開銷中)</span></p>
         </div>
         <div class="bonus-details" style="margin-top: 20px;">
             <ul class="detail-list">
@@ -162,6 +167,10 @@ function renderAnnualBonus() {
                 <li>
                     <span class="item-name">預期縮減 (如：今年可能砍旅遊金)</span>
                     <span class="item-value" style="color: var(--highlight-color); font-weight: 800;">- NT$ ${potentialBonusCut.toLocaleString()}</span>
+                </li>
+                <li style="border-top: 2px dashed var(--border-color); margin-top: 10px; padding-top: 15px;">
+                    <span class="item-name" style="font-size: 1.1rem; color: var(--primary-color);">🌟 預估年度總存款 (每月閒錢×12 + 獎金)</span>
+                    <span class="item-value" style="font-size: 1.4rem; color: var(--success-color);">NT$ ${estimatedAnnualSurplus.toLocaleString()}</span>
                 </li>
             </ul>
         </div>
