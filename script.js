@@ -35,16 +35,6 @@ const financeData = [
         ]
     },
     {
-        title: "年度魔王帳單預扣 (每月)",
-        icon: "fa-shield-halved",
-        total: "NT$ 2,690",
-        note: "平攤年度保險與稅金，每月先扣起來",
-        items: [
-            { name: "保險費 (年繳14,245)", value: "1,187" },
-            { name: "所得稅預估 (年繳約18,040)", value: "1,503" }
-        ]
-    },
-    {
         title: "交通與平日租車",
         icon: "fa-car",
         total: "NT$ 1,120",
@@ -55,8 +45,8 @@ const financeData = [
     }
 ];
 
-// 計算總基礎開銷
-const totalFixedExpenses = 32699 + 18500 + 2690 + 1120;
+// 計算總基礎開銷 (已移除年度帳單的每月預扣)
+const totalFixedExpenses = 32699 + 18500 + 1120;
 // 基礎剩餘閒錢
 const baseFlexibleFund = baseIncome - totalFixedExpenses;
 
@@ -140,7 +130,11 @@ function renderAnnualBonus() {
     const container = document.getElementById('annual-bonus-container');
     if (!container) return;
     
-    const actualExtraFund = estimatedExtraBonus + welfareFund - potentialBonusCut;
+    const annualInsurance = 14245;
+    const annualTax = 18040;
+    const annualMonsterBills = annualInsurance + annualTax;
+    
+    const actualExtraFund = estimatedExtraBonus + welfareFund - potentialBonusCut - annualMonsterBills;
     const actualExtraFundWan = (actualExtraFund / 10000).toFixed(1);
     
     // 計算兩種存款情境
@@ -171,6 +165,10 @@ function renderAnnualBonus() {
                 <li>
                     <span class="item-name">預期縮減 (如：今年可能砍旅遊金)</span>
                     <span class="item-value" style="color: var(--highlight-color); font-weight: 800;">- NT$ ${potentialBonusCut.toLocaleString()}</span>
+                </li>
+                <li>
+                    <span class="item-name">年度魔王帳單一次扣除 (保險 14k + 所得稅 18k)</span>
+                    <span class="item-value" style="color: var(--highlight-color); font-weight: 800;">- NT$ ${annualMonsterBills.toLocaleString()}</span>
                 </li>
                 <li style="border-top: 2px dashed var(--border-color); margin-top: 10px; padding-top: 15px; flex-direction: column; align-items: flex-start; gap: 10px;">
                     <div style="display: flex; justify-content: space-between; width: 100%;">
