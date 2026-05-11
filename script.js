@@ -152,7 +152,7 @@ function renderAnnualBonus() {
                     <span class="item-value">NT$ ${annualBaseIncome.toLocaleString()}</span>
                 </li>
                 <li>
-                    <span class="item-name">預估額外獎金 (稅單總額 - 基礎年薪)</span>
+                    <span class="item-name">年終獎金 (稅單總額 - 基礎年薪)</span>
                     <span class="item-value" style="color: var(--bonus-color); font-weight: 800;">+ NT$ ${estimatedExtraBonus.toLocaleString()}</span>
                 </li>
                 <li>
