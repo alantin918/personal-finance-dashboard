@@ -50,8 +50,27 @@ const totalFixedExpenses = 32699 + 18500 + 1120;
 // 基礎剩餘閒錢
 const baseFlexibleFund = baseIncome - totalFixedExpenses;
 
+// --- 永豐金證券庫存數據 ---
+const sinopacData = {
+    updateTime: "2026-05-26",
+    bankBalance: 106869,
+    stocks: [
+        { code: "2330", name: "台積電", shares: 15, avgPrice: 1955.33, totalValue: 29329.95 },
+        { code: "00937B", name: "群益ESG投等債20+", shares: 2206, avgPrice: 13.64, totalValue: 30089.84 },
+        { code: "0050", name: "元大台灣50", shares: 165, avgPrice: 84.93, totalValue: 14013.45 },
+        { code: "6757", name: "台灣銘板", shares: 1, avgPrice: 55.00, totalValue: 55.00 }
+    ],
+    totalStockValue: 73488.24,
+    totalAssetValue: 180357.24
+};
+
 // --- 版本紀錄配置 ---
 const changelogData = [
+    {
+        version: "v1.6.0",
+        date: "2026-05-26",
+        description: "新增：整合永豐金證券（Shioaji API）取回之最新實時庫存與存款數據！顯示資產總體配比（現金、股票百分比）及詳細證券持股清單。"
+    },
     {
         version: "v1.5.0",
         date: "2026-05-11",
@@ -185,6 +204,44 @@ function renderAnnualBonus() {
     `;
 }
 
+// --- 渲染永豐金證券庫存 ---
+function renderSinopacStock() {
+    const container = document.getElementById('sinopac-stock-container');
+    if (!container) return;
+    
+    let stockItemsHtml = '';
+    sinopacData.stocks.forEach(stock => {
+        const pct = ((stock.totalValue / sinopacData.totalStockValue) * 100).toFixed(1);
+        stockItemsHtml += `
+            <div class="stock-item-row" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--border-color);">
+                <div class="stock-item-left" style="display: flex; flex-direction: column;">
+                    <span class="stock-name" style="font-weight: 600; color: var(--text-color);">${stock.name} <small style="color: var(--text-muted); font-size: 0.8rem;">(${stock.code})</small></span>
+                    <span class="stock-qty" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">股數: ${stock.shares.toLocaleString()} 股 | 均價: NT$ ${stock.avgPrice.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 2})}</span>
+                </div>
+                <div class="stock-item-right" style="display: flex; flex-direction: column; align-items: flex-end;">
+                    <span class="stock-val" style="font-weight: 700; color: var(--primary-color);">NT$ ${Math.round(stock.totalValue).toLocaleString()}</span>
+                    <span class="stock-pct" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">佔比: ${pct}%</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = `
+        <div class="bonus-header">
+            <h3><span class="icon-wrapper stock-title-icon" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;"><i class="fas fa-chart-line"></i></span> 總資產規模：NT$ ${Math.round(sinopacData.totalAssetValue).toLocaleString()}</h3>
+            <p class="note" style="margin-top: 10px; font-size: 0.95rem; color: var(--text-color);">
+                📅 更新時間：<strong>${sinopacData.updateTime}</strong><br>
+                🏦 銀行存款 (現金)：<strong>NT$ ${sinopacData.bankBalance.toLocaleString()}</strong> (${(sinopacData.bankBalance / sinopacData.totalAssetValue * 100).toFixed(1)}%)<br>
+                📈 證券總市值：<strong>NT$ ${Math.round(sinopacData.totalStockValue).toLocaleString()}</strong> (${(sinopacData.totalStockValue / sinopacData.totalAssetValue * 100).toFixed(1)}%)
+            </p>
+        </div>
+        <div class="stock-list-container" style="margin-top: 20px;">
+            <h4 style="font-size: 1rem; color: var(--text-color); margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;"><i class="fas fa-list-ul"></i> 證券持股清單</h4>
+            ${stockItemsHtml}
+        </div>
+    `;
+}
+
 // --- 渲染版本紀錄 ---
 function renderChangelog() {
     const list = document.getElementById('changelog-list');
@@ -268,6 +325,7 @@ function setupThemeToggle() {
 document.addEventListener('DOMContentLoaded', () => {
     renderFinanceDetails();
     renderAnnualBonus();
+    renderSinopacStock();
     renderChangelog();
     setupCalculator();
     setupThemeToggle();
